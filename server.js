@@ -11,7 +11,7 @@ dotenv.config()
 // })
 
 const app = express()
-app.get('/', (req, res) => res.send('hello server- test 46'))
+app.get('/', (req, res) => res.send('hello server- test 47'))
 
 appMiddlewares(app)
 
