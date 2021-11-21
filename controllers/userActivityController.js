@@ -7,95 +7,67 @@ import Content from '../models/ContentHijacked.js'
 import Video from '../models/VideoHijacked.js'
 
 export const user ={
-    getBrands: async function(req, res){
+     getBrands: async function(req, res){
         try{
-            const user = await User.findById({_id: req.authenticatedUser.id})
-
-            const id = user._id
-           if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No User with id: ${id}`);
-
-           const { brands } = await User.findById(id).populate('brands')
-
-           return res.status(200).json({brands}) 
-
+            const { authenticatedUser: {id}} = req
+            const brands = await Brand.find({brandOwner: req.authenticatedUser.id})
+            
+            res.status(200).json({brands})
         }catch(err){
             console.log(err.message)
+            return res.status(400).json({msg: 'something went wrong while fetching brands'})
         }
     },
-   
     postBrand: async function(req, res){
         try{
-            const newBrand = new Brand(req.body)
+            req.body.brandOwner = req.authenticatedUser.id
+            const brand = await Brand.create(req.body)
+            res.status(201).json({brand})
 
-           const userId = await User.findById({_id: req.authenticatedUser.id})
-           const id  = userId._id
-          if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No User with id: ${id}`);
-           const brand = await newBrand.save()
-          
-            const userBrand = await User.findById(id).populate('brands').select('-password')
-             userBrand.brands.push(brand) 
-
-             await userBrand.save()
-            
-          res.status(201).json({brands: userBrand.brands})
-        console.log(id)
-        
         }catch(err){
             console.log(err.message)
+            return res.status(400).json({msg: 'something went wrong while creating brand'})
         }
     },
     getMessages: async function(req, res){
         
         try{
-            const user = await User.findById({_id: req.authenticatedUser.id})
-
-            const id = user._id
-           if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No User with id: ${id}`);
-
-           const { messages } = await User.findById(id).populate('messages')
+            const { authenticatedUser: {id}} = req
+            const messages = await Message.find({createdBy: req.authenticatedUser.id})
 
            return res.status(200).json({messages}) 
 
         }catch(err){
             console.log(err.message)
+            return res.status(400).json({msg: 'something went wrong while creating message'})
         }
     },
     postMessage: async function(req, res){
         try{
-           
-            const newMessageContent = new Message(req.body)
-            console.log(req.body)
-
-           const userId = await User.findById({_id: req.authenticatedUser.id})
-           const id  = userId._id
-           if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No User with id: ${id}`);
-            const message = await newMessageContent.save()
-          
-            const userMessages = await User.findById(id).populate('messages')
-            userMessages.messages.unshift(message) 
-
-             await userMessages.save()
-            
-           res.status(201).json({messages: userMessages.messages})
+            req.body.createdBy = req.authenticatedUser.id
+            const message = await Message.create(req.body)
+            res.status(201).json({message})
       
         }catch(err){
             console.log(err.message)
+            return res.status(400).json({msg: 'something went wrong while creating brand'})
         }
       
 
     },
     deleteBrand: async function(req, res){
         try{
-
-            const { id } = req.params;
-
-        if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No Brand with id: ${id}`);
-        await Brand.findByIdAndRemove(id)
-        res.json({})
       
+            const brand = await Brand.findByIdAndRemove({
+                _id: req.params.id,
+                brandOwner: req.authenticatedUser.id
+            })
+
+            return res.status(200).json({})
 
         }catch(err){
             console.log(err.message)
+            return res.status(400).json({msg: 'something went wrong while deleting brand'})
         }
     },
 
@@ -203,26 +175,16 @@ export const user ={
         }
     },
     saveHijackedContent: async function(req, res){
-            try{
-           
-            const content = new Content(req.body)
+        try{   
 
-           const userId = await User.findById({_id: req.authenticatedUser.id})
-           const id  = userId._id
-           if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No User with id: ${id}`);
-            const contents = await content.save()
-          
-        const userContents = await User.findById(id).populate('contents')
-            userContents.contents.push(contents) 
+        req.body.createdBy = req.authenticatedUser.id
+        const content = await Content.create(req.body)
+        res.status(201).json({contentData: content})
 
-             await userContents.save()
-            
-           res.status(201).json({contentData: userContents.contents})
-      
-        }catch(err){
-            console.log(err.message)
-        }
-    },
+    }catch(err){
+        console.log(err.message)
+    }
+},
     getHijackedContent: async function(req, res){
           try{
              const user = await User.findById({_id: req.authenticatedUser.id})
