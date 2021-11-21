@@ -15,6 +15,11 @@ const messageSchema = new Schema({
   preferredName: {type: String},
   signupText: {type: String},
   successMessage: {type: String},
+  createdBy: {
+    type: mongoose.Types.ObjectId, 
+    ref: 'User',
+    required: [true, 'User Must be Included']
+  }
 
 })
 
