@@ -4,16 +4,17 @@ const { Schema } = mongoose
 const brandSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: [true, 'Please provide Brand name']
     },
     slogan: {
         type: String,
-        required: true
+        required: [true, 'Please provide Brand slogan']
     },
     avatar: String,
     brandOwner: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
+        type: mongoose.Types.ObjectId,
+        ref: 'User',
+        required: [true, 'User must be included']
     }
 }, {timestamps: true})
 
