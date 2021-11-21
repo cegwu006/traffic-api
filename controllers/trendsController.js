@@ -7,7 +7,7 @@ export const trends = {
     try {
       const articles = await googleNewsScraper({
         searchTerm: req.query.keyword,
-        prettyURLs: false,
+        prettyURLs: true,
         timeframe: "1d",
         puppeteerArgs: ["--no-sandbox", "--disable-setuid-sandbox"],
       });
