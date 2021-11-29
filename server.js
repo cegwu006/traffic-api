@@ -5,10 +5,6 @@ import { appMiddlewares } from './middlewares/appMiddlewares.js'
 
 dotenv.config()
 
-// process.on('uncaughtException', (err) => {
-//     console.log('ERROR exception:', err.message)
-//     process.exit(1)
-// })
 
 const app = express()
 app.get('/', (req, res) => res.send('hello server'))
