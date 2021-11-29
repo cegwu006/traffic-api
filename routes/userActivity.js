@@ -1,6 +1,25 @@
 import { Router } from 'express'
 import { user  } from '../controllers/userActivityController.js'
 import auth from '../middlewares/authMiddleware.js'
+import { v2 as cloudinary } from 'cloudinary'
+import { CloudinaryStorage } from 'multer-storage-cloudinary'
+
+
+cloudinary.config({
+  cloud_name: "dtnak5416",
+  api_key: "835991936374554",
+  api_secret: "SoB00_UUlI3TM41RFGkfkAIBnRw",
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  allowedFormats: ["jpg", "png"],
+  params: {
+    folder: "uploads",
+  },
+});
+
+const upload = multer({ storage: storage });
 
 const router = Router()
 
@@ -32,5 +51,7 @@ router.post('/hijack/content', auth, user.saveHijackedContent)
 router.get('/stats/hijack', auth, user.getStats)
 
 router.get('/hijacked/content/:id', user.getSingleContent)
+
+router.post('/upload/profile', auth, upload.single('avatar'),  user.uploadUserAvatar)
 
 export default router

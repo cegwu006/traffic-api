@@ -309,5 +309,24 @@ export const user ={
         }catch(err){
             console.log(err.message)
         }
+    },
+    uploadUserAvatar: async function(req, res, next){
+        try{
+            const { authenticatedUser: {id}} = req
+            
+            const user = await User.findOne({_id: id})
+            if (user) {
+                user.avatar = req.file.path
+                await user.save()
+                return res.status(200).json({picture: req.file.path})
+                
+            }else{
+                return res.status(400).json('No user found');
+            }
+
+        
+        }catch(err){
+            console.log(err.message)
+        }
     }
 }
