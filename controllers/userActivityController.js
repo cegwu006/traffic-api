@@ -5,6 +5,15 @@ import User from '../models/User.js'
 import Message from '../models/Message.js'
 import Content from '../models/ContentHijacked.js'
 import Video from '../models/VideoHijacked.js'
+import SibApiV3Sdk  from 'sib-api-v3-sdk'
+
+
+var defaultClient = SibApiV3Sdk.ApiClient.instance
+
+var apiKey = defaultClient.authentications['api-key'];
+apiKey.apiKey = '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';
+
+var apiInstance = new SibApiV3Sdk.ContactsApi();
 
 export const user ={
      getBrands: async function(req, res){
@@ -328,5 +337,15 @@ export const user ={
         }catch(err){
             console.log(err.message)
         }
-    }
+    },
+    subscribeSendiBlue: async function(req, res, next){
+        var createContact = new SibApiV3Sdk.CreateContact(); // CreateContact | Values to create a contact
+        createContact = { 'email' :req.body.email };
+
+    apiInstance.createContact(createContact).then(function(data) {
+        return res.status(200).json({msg: 'successfully subscribed'})
+    }, function(error) {
+    console.error(error);
+    j});
+}
 }

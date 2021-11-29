@@ -3,6 +3,7 @@ import { user  } from '../controllers/userActivityController.js'
 import auth from '../middlewares/authMiddleware.js'
 import { v2 as cloudinary } from 'cloudinary'
 import { CloudinaryStorage } from 'multer-storage-cloudinary'
+import multer from 'multer'
 
 
 cloudinary.config({
@@ -53,5 +54,7 @@ router.get('/stats/hijack', auth, user.getStats)
 router.get('/hijacked/content/:id', user.getSingleContent)
 
 router.post('/upload/profile', auth, upload.single('avatar'),  user.uploadUserAvatar)
+
+router.post('/subscribe/sendiblue', user.subscribeSendiBlue)
 
 export default router
