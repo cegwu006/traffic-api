@@ -5,10 +5,11 @@ const { Schema } = mongoose
 const videoHijackedSchema = new Schema({
      id: { type: String, required: true },   
      videoImg: { type: String, },  
-     owner: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    } 
+     createdBy:{
+          type: mongoose.Types.ObjectId, 
+          ref: 'User',
+          required: [true, 'User must be included']
+     }
 })
 
 

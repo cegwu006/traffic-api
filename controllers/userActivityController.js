@@ -196,14 +196,10 @@ export const user ={
 },
     getHijackedContent: async function(req, res){
           try{
-             const user = await User.findById({_id: req.authenticatedUser.id})
-
-            const id = user._id
-           if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No User with id: ${id}`);
-
-           const { contents } = await User.findById(id).populate('contents')
-
-           return res.status(200).json(contents) 
+            const { authenticatedUser: {id}} = req
+            const hijackedContents = await Content.find({createdBy: req.authenticatedUser.id})
+            
+            res.status(200).json({hijackedContents})
         }catch(err){
             console.log(err.message)
             return res.status(400).json({errors: err.message})
@@ -223,19 +219,10 @@ export const user ={
     saveVideoHijacked: async function(req, res){
             try{
            
-            const video = new Video(req.body)
 
-            const userId = await User.findById({_id: req.authenticatedUser.id})
-              const id  = userId._id
-              if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No User with id: ${id}`);
-            const videos = await video.save()
-         
-          const userVideos = await User.findById(id).populate('videos')
-            userVideos.videos.push(videos) 
-
-             await userVideos.save()
-            
-          res.status(201).json({videos: userVideos.videos})
+        req.body.createdBy = req.authenticatedUser.id
+        const videos = await Video.create(req.body)
+        res.status(201).json({videos: videos})
         
      
         }catch(err){
