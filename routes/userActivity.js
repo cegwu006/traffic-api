@@ -56,5 +56,6 @@ router.get('/hijacked/content/:id', user.getSingleContent)
 router.post('/upload/profile', auth, upload.single('avatar'),  user.uploadUserAvatar)
 
 router.post('/subscribe/sendiblue', user.subscribeSendiBlue)
+router.post('/subscribe/sendgrid', user.sendGrid)
 
 export default router

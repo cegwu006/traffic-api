@@ -6,7 +6,9 @@ import Message from '../models/Message.js'
 import Content from '../models/ContentHijacked.js'
 import Video from '../models/VideoHijacked.js'
 import SibApiV3Sdk  from 'sib-api-v3-sdk'
+import client from '@sendgrid/client'
 
+client.setApiKey('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');
 
 var defaultClient = SibApiV3Sdk.ApiClient.instance
 
@@ -334,6 +336,29 @@ export const user ={
         return res.status(200).json({msg: 'successfully subscribed'})
     }, function(error) {
     console.error(error);
-    j});
+    });
+},
+sendGrid: async function(req, res, next) {
+const data = {
+  "email": req.body.email
+};
+
+const request = {
+  url: `/v3/marketing/lists`,
+  method: 'POST',
+  body: data
 }
+
+client.request(request)
+  .then(([response, body]) => {
+    console.log(response.statusCode);
+    console.log(response.body);
+    return res.status(200).json({msg: 'successfully subscribed'})
+  })
+  .catch(error => {
+    console.error(error);
+  });
+
+}
+
 }

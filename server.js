@@ -8,6 +8,7 @@ dotenv.config()
 
 const app = express()
 app.get('/', (req, res) => res.send('hello server'))
+app.get('/sample', (req, res) => res.send('sample endpoint created now'))
 
 appMiddlewares(app)
 
