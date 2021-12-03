@@ -21,7 +21,7 @@ export const user ={
             const { authenticatedUser: {id}} = req
             const brands = await Brand.find({brandOwner: req.authenticatedUser.id})
             
-            res.status(200).json({brands})
+            return res.status(200).json({brands})
         }catch(err){
             console.log(err.message)
             return res.status(400).json({msg: 'something went wrong while fetching brands'})
@@ -55,7 +55,7 @@ export const user ={
         try{
             req.body.createdBy = req.authenticatedUser.id
             const message = await Message.create(req.body)
-            res.status(201).json({message})
+           return res.status(201).json({message})
       
         }catch(err){
             console.log(err.message)
@@ -188,7 +188,7 @@ export const user ={
 
         req.body.createdBy = req.authenticatedUser.id
         const content = await Content.create(req.body)
-        res.status(201).json({contentData: content})
+        return res.status(201).json({contentData: content})
 
     }catch(err){
         console.log(err.message)
@@ -196,10 +196,11 @@ export const user ={
 },
     getHijackedContent: async function(req, res){
           try{
-            const { authenticatedUser: {id}} = req
-            const hijackedContents = await Content.find({createdBy: req.authenticatedUser.id})
-            
-            res.status(200).json({hijackedContents})
+            // const { authenticatedUser: {id}} = req
+            // const hijackedContents = await Content.find({createdBy: req.authenticatedUser.id})
+           
+            // return res.status(200).json({hijackedContents})
+            return res.json({message: "content delivered"})
         }catch(err){
             console.log(err.message)
             return res.status(400).json({errors: err.message})
@@ -266,7 +267,7 @@ export const user ={
                 const savedMessage = await Message.findById(req.params.id)
                 res.status(200).json(savedMessage)
             }else{
-                res.status(404).json({message: 'action not permitted'})
+                return res.status(404).json({message: 'action not permitted'})
             }
 
         }catch(err){
