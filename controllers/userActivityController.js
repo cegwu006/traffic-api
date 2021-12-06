@@ -198,11 +198,10 @@ export const user ={
 },
     getHijackedContent: async function(req, res){
           try{
-            // const { authenticatedUser: {id}} = req
-            // const hijackedContents = await Content.find({createdBy: req.authenticatedUser.id})
+            const { authenticatedUser: {id}} = req
+            const hijackedContents = await Content.find({createdBy: req.authenticatedUser.id})
            
-            // return res.status(200).json({hijackedContents})
-            return res.json({message: "content delivered"})
+            return res.status(200).json({hijackedContents})
         }catch(err){
             console.log(err.message)
             return res.status(400).json({errors: err.message})
