@@ -28,6 +28,8 @@ router.get('/brands',  auth, user.getBrands)
 router.post('/brands',  auth, user.postBrand)
 router.delete('/brands/:id',  auth, user.deleteBrand)
 router.get('/brand-avatar/:id', auth, user.brandAvatar)
+router.delete('/message/:id',  auth, user.deleteMessage)
+router.delete('/hijack/content/:id',  auth, user.deleteHijackContent)
 
 
 router.post('/messages', auth, user.postMessage)

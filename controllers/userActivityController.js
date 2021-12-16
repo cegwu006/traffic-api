@@ -82,6 +82,37 @@ export const user ={
         }
     },
 
+    deleteHijackContent: async function(req, res){
+        try{
+      
+            const content = await Content.findByIdAndRemove({
+                _id: req.params.id,
+                createdBy: req.authenticatedUser.id
+            })
+
+            return res.status(200).json({})
+
+        }catch(err){
+            console.log(err.message)
+            return res.status(400).json({msg: 'something went wrong while deleting brand'})
+        }
+    },
+    deleteMessage: async function(req, res){
+        try{
+      
+            const message = await Message.findByIdAndRemove({
+                _id: req.params.id,
+                createdBy: req.authenticatedUser.id
+            })
+
+            return res.status(200).json({})
+
+        }catch(err){
+            console.log(err.message)
+            return res.status(400).json({msg: 'something went wrong while deleting brand'})
+        }
+    },
+
     getLeads: async function(req, res){
         try{
              const user = await User.findById({_id: req.authenticatedUser.id})
