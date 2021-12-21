@@ -37,23 +37,24 @@ router.get('/messages', auth, user.getMessages)
 
 router.get('/message/:id', auth, user.hijackedMessage)
 
-router.get('/leads',  auth, user.leadsEmails)
-// router.post('/leads', auth, user.postLead)
-// router.delete('/leads',   auth, user.deleteLead)
+router.get('/leads',  auth, user.getLeads)
+router.post('/leads',  auth, user.postLead)
+
 
 router.put('/update-profile',   auth, user.updateProfile)
 router.get('/me', auth, user.me)
 
 
 router.post('/hijack/video', auth, user.saveVideoHijacked)
-router.get('/hijack/video',  user.getHijackedVideos)
+router.get('/hijack/video/:id', auth, user.saveVideoHijacked)
+router.get('/hijack/video', auth, user.getHijackedVideos)
 
 router.get('/hijack/content', auth, user.getHijackedContent)
 router.post('/hijack/content', auth, user.saveHijackedContent)
 
 router.get('/stats/hijack', auth, user.getStats)
 
-router.get('/hijacked/content/:id', user.getSingleContent)
+router.get('/hijacked/content/:contentId', auth, user.getSingleContent)
 
 router.post('/upload/profile', auth, upload.single('avatar'),  user.uploadUserAvatar)
 

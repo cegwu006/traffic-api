@@ -12,7 +12,7 @@ const leadsSchema = new Schema({
         required: true
     },
     owner: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: 'User'
     }
 

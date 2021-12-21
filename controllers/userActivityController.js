@@ -7,6 +7,7 @@ import Content from '../models/ContentHijacked.js'
 import Video from '../models/VideoHijacked.js'
 import SibApiV3Sdk  from 'sib-api-v3-sdk'
 import client from '@sendgrid/client'
+import VideoHijacked from '../models/VideoHijacked.js'
 
 client.setApiKey('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');
 
@@ -115,14 +116,8 @@ export const user ={
 
     getLeads: async function(req, res){
         try{
-             const user = await User.findById({_id: req.authenticatedUser.id})
-
-            const id = user._id
-           if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No User with id: ${id}`);
-
-           const { leads } = await User.findById(id).populate('leads')
-
-           return res.status(200).json(leads) 
+             const leads = await Lead.find({ createdBy: req.authenticatedUser.id })
+             return res.status(200).json({ leads, count: leads.length })
         }catch(err){
             console.log(err.message)
         }
@@ -240,14 +235,16 @@ export const user ={
     },
     getSingleContent: async function(req, res){
         try{
-            const contentId = req.params.id
-           if (!mongoose.Types.ObjectId.isValid(contentId)) return res.status(404).send(`Invalid content id`);
-            const content = await Content.findById(contentId)
-
-            res.status(200).json(content)
+           const { authenticatedUser: {id}, params: {contentId} } = req
+           
+           const content = await Content.findOne({_id: contentId, createdBy: id})
+           
+           if (content) return res.status(200).json(content)
+           return res.status(400).json({msg: "invalid content"})
+           
         }catch(err){
             console.log(err.message)
-        } 
+        }
     },
     saveVideoHijacked: async function(req, res){
             try{
@@ -263,13 +260,42 @@ export const user ={
         }
     },
     getHijackedVideos: async function(req, res){
-          try{
-
-           const  videos  = await Video.find({}) 
-
-           return res.status(200).json(videos) 
+        try{
+            const { authenticatedUser: {id}} = req
+            const videos = await VideoHijacked.find({createdBy: req.authenticatedUser.id})
+            
+            return res.status(200).json({videos})
         }catch(err){
             console.log(err.message)
+            return res.status(400).json({msg: 'something went wrong while fetching brands'})
+        } 
+    },
+
+    getVideo: async function(req, res) {
+        try{
+
+        const { authenticatedUser: {id}} = req
+        const video = await VideoHijacked.findOne({_id: req.params.id, createdBy: req.authenticatedUser.id})
+
+        if (video) {
+            return res.stauts(400).json(video)
+        }else{
+
+            return res.status(400).json({msg: "no video found"})
+        }
+        }catch(err){
+            console.log(err.message)
+        }
+    },
+    postLead: async function(req, res){
+        try{
+            req.body.owner = req.authenticatedUser.id
+            const lead = await Lead.create(req.body)
+            res.status(201).json({lead})
+
+        }catch(err){
+            console.log(err.message)
+            return res.status(400).json({msg: 'something went wrong while creating brand'})
         }
     },
     brandAvatar: async function(req, res){
