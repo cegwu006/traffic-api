@@ -1,5 +1,5 @@
 -#!/bin/sh     
-ssh root@puppeteer-server <  cd /traficapi 
+ssh root@159.223.84.31 <  cd /traficapi 
  git pull      
  npm install --production      
  pm2 restart all
