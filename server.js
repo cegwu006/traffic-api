@@ -7,7 +7,7 @@ dotenv.config()
 
 
 const app = express()
-app.get('/', (req, res) => res.send('Hello, final pipeline-test'))
+app.get('/', (req, res) => res.send('Hello, final pipeline-test!'))
 
 
 appMiddlewares(app)
