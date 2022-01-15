@@ -7,7 +7,7 @@ dotenv.config()
 
 
 const app = express()
-app.get('/', (req, res) => res.send('Hello, khtm shut 1'))
+app.get('/', (req, res) => res.send('Hello, khtm shut 2'))
 
 
 appMiddlewares(app)
