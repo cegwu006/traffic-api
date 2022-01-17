@@ -7,7 +7,7 @@ dotenv.config()
 
 
 const app = express()
-app.get('/', (req, res) => res.send('coded update on ip'))
+app.get('/', (req, res) => res.send('Hello world'))
 
 
 appMiddlewares(app)
