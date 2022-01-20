@@ -116,7 +116,7 @@ export const user ={
 
     getLeads: async function(req, res){
         try{
-             const leads = await Lead.find({ createdBy: req.authenticatedUser.id })
+             const leads = await Lead.find({ owner: req.authenticatedUser.id })
              return res.status(200).json({ leads, count: leads.length })
         }catch(err){
             console.log(err.message)
@@ -126,19 +126,9 @@ export const user ={
     postLead: async function(req, res){
 
         try{
-            const newLead = new Lead(req.body)
-
-           const userId = await User.findById({_id: req.authenticatedUser.id})
-           const id  = userId._id
-           if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No User with id: ${id}`);
-            const lead = await newLead.save()
-          
-            const userLead = await User.findById(id).populate('leads')
-            userLead.leads.unshift(lead) 
-
-             await userLead.save()
-            
-           res.status(201).json(userLead)
+            req.body.ownder = req.authenticatedUser.id
+            const lead = await Lead.create(req.body)
+            res.status(201).json({lead})            
 
         }catch(err){
             console.log(err.message)

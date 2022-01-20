@@ -1,6 +1,6 @@
 import googleNewsScraper from "google-news-scraper";
 
-const fetching = async (query) => {};
+const fetching = async (query) => {}
 
 export const trends = {
   getTrend: async function (req, res) {
