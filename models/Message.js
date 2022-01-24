@@ -15,7 +15,7 @@ const messageSchema = new Schema({
   name: {type: String},
   signupText: {type: String},
   successMessage: {type: String},
-
+  background: {type: String},
   createdBy: {
     type: mongoose.Types.ObjectId, 
     ref: 'User',
