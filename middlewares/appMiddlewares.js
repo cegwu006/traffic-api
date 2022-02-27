@@ -10,6 +10,7 @@ import trendsRoute from '../routes/trendsRoute.js'
 import chalk from 'chalk'
 import compression from 'compression'
 import morgan from 'morgan'
+import socialAuths from '../routes/socialAuths.js'
 
 export const appMiddlewares = (app) => {
     
@@ -28,6 +29,8 @@ export const appMiddlewares = (app) => {
 
     // routes
     app.use('/api/user', userRoutes)
+    app.use('/', socialAuths)
+
     app.use('/', mailChimpRoute)
     app.use('/api/edit', profileRoute)
     app.use('/api/user/activity', userActivityRoute)

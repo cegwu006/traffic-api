@@ -18,6 +18,8 @@ const userSchema = new Schema({
         type: String,
         required:  true
     },
+    facebookId: String,
+    facebookAccessToken: String,
     confirmed: {
         type: Boolean,
         default: false
