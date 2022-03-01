@@ -34,8 +34,9 @@ export function lkdinLogin(passport){
   scope: ['r_emailaddress', 'r_liteprofile'],
 }, function(accessToken, refreshToken, profile, cb) {
   // asynchronous verification, for effect...
-  process.nextTick(function () {
-    console.log(profile)
+  process.nextTick(async function () {
+    const {id  } = profile
+     await User.findOneAndUpdate({email: 'tester@gmail.com'}, {linkedinId: id, linkedinAccessToken: accessToken}, {new: true})
   });
 }));
 }

@@ -6,9 +6,7 @@ export default function authMiddleware (req, res, next) {
     let token
 
     if (authHeader) token = authHeader.split(' ')[1]
-
     if (token){
-
     try{
         jwt.verify(token, 'MYSECRET', async (err, decoded) => {
             if (!err) {
@@ -19,10 +17,7 @@ export default function authMiddleware (req, res, next) {
                 res.status(401).json({message: 'Invalid token'})
             }
         })
-    }catch(err){
-        console.log(err.message)
-    }
-  
+    }catch{} 
     }else{
         return res.status(401).json({message: "No token"})
     }      

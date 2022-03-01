@@ -20,6 +20,8 @@ const userSchema = new Schema({
     },
     facebookId: String,
     facebookAccessToken: String,
+    linkedinId: String,
+    linkedinAccessToken: String,
     confirmed: {
         type: Boolean,
         default: false

@@ -9,6 +9,7 @@ import path from 'path'
 import {fileURLToPath } from 'url'
 import { fbLogin, lkdinLogin, twitterLogin} from './config/passport.js'
 import passport from 'passport'
+import Twitter from 'twitter-lite'
 
 dotenv.config()
 
@@ -24,11 +25,18 @@ const options = {
         key: fs.readFileSync(__dirname + '/certs/key.pem'),
         cert: fs.readFileSync(__dirname + '/certs/cert.pem'),
 }
+const client = new Twitter({
+  	consumer_key: 'n31f9u6tB2advZKXYJUcPmLdv',
+	consumer_secret: 'oFJTAwGGFHEIvOIl0vHcoqaugB6wG0NbIQoM5Jnt58ZOZpqKcA',
+	access_token_key: '2742079675-n7SKEyuA5yGkNDL249hb8yUT6Fy8b9AIZMlh9ut',
+	access_token_secret: 'F6XBXzinYnzu22o6WrurBSiOHi7a9Zuu8Awoq7fIPNJpD'
+});
 
 const app = express()
 
 // app.use(passport.initialize());
 // app.use(passport.session());
+
 
 
 app.get('/', (req, res) => res.send('hello world'))
@@ -37,6 +45,16 @@ app.get('/testing/', (req, res) => res.send('testing'))
 
 
 appMiddlewares(app)
+
+app.post('/api/post-tweet', async (req, res) => {
+    try{
+		await client.post('statuses/update', {status: req.body.tweet})
+        return res.status(200).json({msg: "Posted tweet!"})
+	}catch(err) {
+        console.log(err.message)
+        return res.status(400).json({msg: "Failed to  tweet!"})
+	}
+})
 
 const isHttps = false
 
