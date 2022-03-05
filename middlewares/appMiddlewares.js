@@ -24,8 +24,7 @@ export const appMiddlewares = (app) => {
     app.use(metrics())
     app.use(compression())
     app.use(morgan('dev'))
-
-    
+ 
 
     // routes
     app.use('/api/user', userRoutes)

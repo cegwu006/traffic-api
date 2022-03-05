@@ -8,21 +8,22 @@ const messageSchema = new Schema({
   color: {type: String,},
   style: {type: String},
   tarfficSent: {type: String},
+  fontSize:{type: String},
   SocialPageUrl: {type: String},
-  autoResponder: {type: String},
+  autoResponder: {type: String, default: ''},
   baittext: {type: String},
-  successmsg: {type: String},
   name: {type: String},
   signupText: {type: String},
   successMessage: {type: String},
   background: {type: String},
+  type: {type: String},
   createdBy: {
     type: mongoose.Types.ObjectId, 
     ref: 'User',
     required: [true, 'User Must be Included']
   }
 
-})
+});
 
 
 export default mongoose.model('Message', messageSchema)
