@@ -7,7 +7,7 @@ const messageSchema = new Schema({
   email: {type: String},
   color: {type: String,},
   style: {type: String},
-  tarfficSent: {type: String},
+  trafficSent: {type: String},
   fontSize:{type: String},
   SocialPageUrl: {type: String},
   autoResponder: {type: String, default: ''},
