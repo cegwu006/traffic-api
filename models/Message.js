@@ -9,7 +9,7 @@ const messageSchema = new Schema({
   style: {type: String},
   trafficSent: {type: String},
   fontSize:{type: String},
-  SocialPageUrl: {type: String},
+  socialPageUrl: {type: String},
   autoResponder: {type: String, default: ''},
   baittext: {type: String},
   name: {type: String},
