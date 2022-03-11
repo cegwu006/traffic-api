@@ -56,10 +56,11 @@ export const user ={
     },
     postMessage: async function(req, res){
         try{
-            req.body.createdBy = req.authenticatedUser.id
-            const message = await Message.create(req.body)
-           return res.status(201).json({message})
+        //     req.body.createdBy = req.authenticatedUser.id
+        //     const message = await Message.create(req.body)
+        //    return res.status(201).json({message})
       
+        return res.status(201).json(req.body)
         }catch(err){
             console.log(err.message)
             return res.status(400).json({msg: 'something went wrong while creating brand'})
