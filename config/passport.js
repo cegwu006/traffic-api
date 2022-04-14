@@ -7,8 +7,8 @@ import User from '../models/User.js'
 
 export  function fbLogin(passport){
 passport.use(new FacebookStrategy({
-   clientID: '231936885821008',
-    clientSecret: '97324eb7e77bb0add413c1afea457aea',
+   clientID: process.env.FB_ID,
+    clientSecret: FB_SECRET,
     callbackURL: "/auth/facebook/callback/",
     profileFields: ['id', 'displayName', 'link', 'email']
   },
@@ -28,8 +28,8 @@ passport.use(new FacebookStrategy({
 
 export function lkdinLogin(passport){
   passport.use(new LinkedInStrategy({
-  clientID: '77xvm70p4sz6c1',
-  clientSecret: 'NiPl6s2lVOVvKSge',
+  clientID: process.env.LINKEDIN_ID,
+  clientSecret: process.env.LINKEDIN_SECRET,
   callbackURL: "/auth/linkedin/callback",
   scope: ['r_emailaddress', 'r_liteprofile'],
 }, function(accessToken, refreshToken, profile, cb) {

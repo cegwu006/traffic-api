@@ -254,6 +254,7 @@ export const user ={
         try{
             const { authenticatedUser: {id}} = req
             const videos = await VideoHijacked.find({createdBy: req.authenticatedUser.id})
+            console.log(videos.length)
             
             return res.status(200).json({videos})
         }catch(err){
@@ -269,6 +270,7 @@ export const user ={
         const video = await VideoHijacked.findOne({_id: req.params.id, createdBy: req.authenticatedUser.id})
 
         if (video) {
+            
             return res.stauts(400).json(video)
         }else{
 

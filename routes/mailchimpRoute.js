@@ -11,8 +11,9 @@ const options = {
     apiKey:'2a5f00d4090db4e77e91f672db11d50f-us6',
 }
 
-const clientID = '693549837339'
-const clientSecret = 'a3775a245629eaa47805dae39ccfba3f92467f11f01ae30cbe'
+const clientID = MAIL_CHIMP_ID
+const clientSecret = process.env.MAIL_CHIMP_SECRET
+
 
 
 router.post('/user', addUserToList)

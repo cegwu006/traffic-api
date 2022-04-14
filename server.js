@@ -26,10 +26,10 @@ const options = {
         cert: fs.readFileSync(__dirname + '/certs/cert.pem'),
 }
 const client = new Twitter({
-  	consumer_key: 'n31f9u6tB2advZKXYJUcPmLdv',
-	consumer_secret: 'oFJTAwGGFHEIvOIl0vHcoqaugB6wG0NbIQoM5Jnt58ZOZpqKcA',
-	access_token_key: '2742079675-n7SKEyuA5yGkNDL249hb8yUT6Fy8b9AIZMlh9ut',
-	access_token_secret: 'F6XBXzinYnzu22o6WrurBSiOHi7a9Zuu8Awoq7fIPNJpD'
+  	consumer_key: process.env.TWITTER_KEY,
+	consumer_secret: process.env.TWITTER_SECRET,
+	access_token_key: process.env.TWITTER_ACCESS_TOKEN,
+	access_token_secret: process.env.TWITTER_ACCESS_SECRET
 });
 
 const app = express()

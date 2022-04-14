@@ -2,11 +2,7 @@ import { Router } from 'express'
 const router = Router()
 import passport from 'passport' 
 
-// router.get('/auth/facebook', passport.authenticate('facebook', {
-//     scope: ['email', 'user_posts']
-// }), async (req,res, next) => {
-//     console.log('auth fb')
-// })
+
 
 router.get('/auth/facebook',
   passport.authenticate('facebook'))
