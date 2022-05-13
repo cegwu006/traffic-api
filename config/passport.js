@@ -7,8 +7,8 @@ import User from '../models/User.js'
 
 export  function fbLogin(passport){
 passport.use(new FacebookStrategy({
-   clientID: process.env.FB_ID,
-    clientSecret: FB_SECRET,
+   clientID: "process.env.FB_ID",
+    clientSecret: "FB_SECRET",
     callbackURL: "/auth/facebook/callback/",
     profileFields: ['id', 'displayName', 'link', 'email']
   },

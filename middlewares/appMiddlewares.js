@@ -11,6 +11,11 @@ import chalk from 'chalk'
 import compression from 'compression'
 import morgan from 'morgan'
 import socialAuths from '../routes/socialAuths.js'
+import swaggerUI from 'swagger-ui-express'
+import YAML from 'yamljs'
+
+
+const swaggerDocument = YAML.load('./swagger.yaml')
 
 export const appMiddlewares = (app) => {
     
@@ -34,10 +39,8 @@ export const appMiddlewares = (app) => {
     app.use('/api/edit', profileRoute)
     app.use('/api/user/activity', userActivityRoute)
     app.use('/api/trends', trendsRoute)
+    app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
   
-    app.get('/', (req, res) => res.json({msg: 'Hey'}))
-
-
     app.use((err, req, res, next) => {
         if (err.name === 'UnauthorizedError'){
           res.status(401).json({error: err.name + ':' + err.message})

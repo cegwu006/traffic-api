@@ -11,8 +11,8 @@ const options = {
     apiKey:'2a5f00d4090db4e77e91f672db11d50f-us6',
 }
 
-const clientID = MAIL_CHIMP_ID
-const clientSecret = process.env.MAIL_CHIMP_SECRET
+const clientID = 'MAIL_CHIMP_ID'
+const clientSecret = 'process.env.MAIL_CHIMP_SECRET'
 
 
 

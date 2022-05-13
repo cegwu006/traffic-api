@@ -1,0 +1,153 @@
+openapi: 3.0.0
+info:
+  title: Traffic Api
+  contact: {}
+  version: '1.0'
+servers:
+  - url: http://144.202.35.217:5000/api/
+    variables: {}
+paths:
+  /user/signup:
+    post:
+      tags:
+        - Auth
+      summary: Register User
+      operationId: RegisterUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUserRequest'
+            example:
+              email: tester@gmail.com
+              password: tester
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /user/signin:
+    post:
+      tags:
+        - Auth
+      summary: Login User
+      operationId: LoginUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUserRequest'
+            example:
+              email: tester@gmail.com
+              password: tester
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /trends/fetch/trends:
+    get:
+      tags:
+        - Trends
+      summary: Get All Trends
+      operationId: AllTrends
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetAllTrendsRequest'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    get:
+      tags:
+        - Trends
+      summary: Get All Trends
+      operationId: GetAllTrends
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /trendds/fetch/trends/?keyword={keyword}:
+    parameters:
+      - in: path
+        name: keyword
+        schema:
+          type: string
+        required: true
+        description: The Trend Keyword
+    get:
+      tags:
+        - Single Trend
+      summary: Get Single Trend
+      operationId: GetSingleTrend
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+
+   
+
+components:
+  schemas:
+    RegisterUserRequest:
+      title: RegisterUserRequest
+      required:
+        - name
+        - email
+        - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: tester@gmail.com
+        password: tester
+    LoginUserRequest:
+      title: LoginUserRequest
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: tester@gmail.com
+        password: tester
+    GetAllTrendsRequest:
+      title: GetAllTrendsRequest
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+security:
+  - httpBearer: []
+tags:
+  - name: Auth
+    description: ''
+  - name: Trends
+    description: ''

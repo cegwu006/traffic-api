@@ -38,9 +38,12 @@ const app = express()
 // app.use(passport.session());
 
 
+app.get('/', (req, res) => {
+  res.send('<h1> API</h1><a href="/api-docs">Documentation</a>');
+});
 
-app.get('/', (req, res) => res.send('hello world'))
-app.get('/testing/', (req, res) => res.send('testing'))
+
+//app.get('/testing/', (req, res) => res.send('testing'))
 
 
 
