@@ -28,8 +28,8 @@ passport.use(new FacebookStrategy({
 
 export function lkdinLogin(passport){
   passport.use(new LinkedInStrategy({
-  clientID: process.env.LINKEDIN_ID,
-  clientSecret: process.env.LINKEDIN_SECRET,
+  clientID: 'process.env',
+  clientSecret: 'process.env',
   callbackURL: "/auth/linkedin/callback",
   scope: ['r_emailaddress', 'r_liteprofile'],
 }, function(accessToken, refreshToken, profile, cb) {

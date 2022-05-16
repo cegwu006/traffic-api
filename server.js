@@ -21,10 +21,10 @@ const __filename = fileURLToPath(import.meta.url)
 // https options
 const __dirname = path.dirname(__filename)
 
-const options = {
-        key: fs.readFileSync(__dirname + '/certs/key.pem'),
-        cert: fs.readFileSync(__dirname + '/certs/cert.pem'),
-}
+// const options = {
+//         key: fs.readFileSync(__dirname + '/certs/key.pem'),
+//         cert: fs.readFileSync(__dirname + '/certs/cert.pem'),
+// }
 const client = new Twitter({
   	consumer_key: process.env.TWITTER_KEY,
 	consumer_secret: process.env.TWITTER_SECRET,

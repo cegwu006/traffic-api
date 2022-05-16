@@ -2,7 +2,7 @@
   "name": "traffic-app",
   "type": "module",
   "version": "1.0.0",
-  "description": "",
+  "description": "<h1 align=\"center\">Traffic App Backend </h1> <p>   <img alt=\"Version\" src=\"https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000\" />   <img src=\"https://img.shields.io/badge/node-14.x-blue.svg\" /> </p>",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
@@ -52,5 +52,13 @@
     "chai": "^4.3.4",
     "chai-http": "^4.3.0",
     "mocha": "^9.1.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devcloudstudio/traffic-pilot-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/devcloudstudio/traffic-pilot-api/issues"
+  },
+  "homepage": "https://github.com/devcloudstudio/traffic-pilot-api#readme"
 }
